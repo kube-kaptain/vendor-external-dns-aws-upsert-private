@@ -108,3 +108,15 @@ spec:
             periodSeconds: ${VendorExternalDnsAwsUpsertPrivate/ProbeStartupPeriod}
             timeoutSeconds: ${VendorExternalDnsAwsUpsertPrivate/ProbeTimeoutSeconds}
             failureThreshold: ${VendorExternalDnsAwsUpsertPrivate/ProbeStartupFailureThreshold}
+          resources:
+            requests:
+              cpu: "${VendorExternalDnsAwsUpsertPrivate/CpuRequest}"
+              memory: "${VendorExternalDnsAwsUpsertPrivate/Memory}"
+            limits:
+              memory: "${VendorExternalDnsAwsUpsertPrivate/Memory}"
+          env:
+            - name: GOMEMLIMIT
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.memory
+                  divisor: ${VendorExternalDnsAwsUpsertPrivate/GoMemLimitDivisor}
